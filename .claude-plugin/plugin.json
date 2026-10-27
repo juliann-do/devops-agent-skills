@@ -1,0 +1,28 @@
+{
+  "name": "devops-skills",
+  "description": "DevOps agent skills and subagents: read-only advisors (review, audit, incident, runbook) plus confirm-before-write skills (deploy tickets, worklogs, migrations), and a guard hook that asks before mutating infra commands.",
+  "version": "1.2.0",
+  "author": {
+    "name": "devops-agent-skills contributors"
+  },
+  "homepage": "https://github.com/TonyDo-BBDT/devops-agent-skills",
+  "repository": "https://github.com/TonyDo-BBDT/devops-agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "devops",
+    "sre",
+    "platform-engineering",
+    "incident-response",
+    "kubernetes",
+    "terraform",
+    "ci-cd",
+    "docker",
+    "observability",
+    "security",
+    "cost-optimization",
+    "disaster-recovery",
+    "database",
+    "runbook",
+    "release-readiness"
+  ]
+}
