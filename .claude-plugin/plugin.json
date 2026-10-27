@@ -1,13 +1,12 @@
 {
   "name": "devops-skills",
-  "description": "A collection of read-only DevOps advisor skills. Point them at infrastructure, clusters, pipelines, databases, or an incident and they investigate, base findings on evidence, and write structured remediation or investigation plans any agent can execute. They never apply changes themselves.",
-  "version": "1.1.0",
+  "description": "DevOps agent skills and subagents: read-only advisors (review, audit, incident, runbook) plus confirm-before-write skills (deploy tickets, worklogs, migrations), and a guard hook that asks before mutating infra commands.",
+  "version": "1.2.0",
   "author": {
-    "name": "devops-skills contributors",
-    "url": "https://github.com/NotHarshhaa/devops-skills/graphs/contributors"
+    "name": "devops-agent-skills contributors"
   },
-  "homepage": "https://github.com/NotHarshhaa/devops-skills",
-  "repository": "https://github.com/NotHarshhaa/devops-skills",
+  "homepage": "https://github.com/TonyDo-BBDT/devops-agent-skills",
+  "repository": "https://github.com/TonyDo-BBDT/devops-agent-skills",
   "license": "MIT",
   "keywords": [
     "devops",

@@ -9,13 +9,13 @@ All configs are sanitized: secrets come from env vars, and internal hosts/IPs/ac
 |---|---|
 | `skills/` | Skills, one `SKILL.md` each (plus `docs/` shared templates) |
 | `agents/` | Claude Code subagents: `infra-engineer`, `infra-reviewer`, `infra-security` |
-| `hooks/guard-infra.sh` | `PreToolUse` Bash hook: asks before mutating kubectl/helm/terraform/aws commands or reading credential files |
+| `hooks/` | `guard-infra.sh` + plugin `hooks.json`: `PreToolUse` Bash hook: asks before mutating kubectl/helm/terraform/aws commands or reading credential files |
 | `config/claude/` | `settings.json` (permissions + hook), `mcp.json` (MCP servers), global `CLAUDE.md` |
 | `config/codex/config.toml` | Same MCP servers for Codex CLI |
 | `config/kubernetes-mcp-server/config.toml` | Read-only config for `kubernetes-mcp-server` |
 | `config/env.example` | Env vars the configs expect |
 | `config/AGENTS.example.md` | Example workspace `AGENTS.md` |
-| `.claude-plugin/` | Plugin manifest, so the repo installs as a Claude Code plugin |
+| `.claude-plugin/` | Plugin + marketplace manifest: the repo installs as the `devops-skills` plugin |
 
 ## Skills
 
@@ -27,7 +27,7 @@ These were written for one team's setup; adapt the placeholders and names before
 ## Install
 
 ```bash
-# Claude Code: as a plugin
+# Claude Code: as a plugin (skills + agents + guard hook; MCP and settings stay manual)
 claude plugin marketplace add TonyDo-BBDT/devops-agent-skills
 claude plugin install devops-skills@devops-skills
 
@@ -35,7 +35,7 @@ claude plugin install devops-skills@devops-skills
 cp -R skills/* ~/.claude/skills/          # Codex: ~/.codex/skills/
 cp agents/*.md ~/.claude/agents/
 cp hooks/guard-infra.sh ~/.claude/hooks/ && chmod +x ~/.claude/hooks/guard-infra.sh
-# merge config/claude/settings.json into ~/.claude/settings.json
+# merge config/claude/settings.json into ~/.claude/settings.json (skip its hooks block if you installed the plugin)
 # MCP: merge config/claude/mcp.json into ~/.claude.json (or a project .mcp.json)
 #      merge config/codex/config.toml into ~/.codex/config.toml
 mkdir -p ~/.config/kubernetes-mcp-server && cp config/kubernetes-mcp-server/config.toml ~/.config/kubernetes-mcp-server/
