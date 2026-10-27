@@ -1,0 +1,49 @@
+# Vietnam public holidays, by year. Seed/best-effort list — NOT guaranteed
+# authoritative. Fixed (solar-date) holidays are reliable; lunar-calendar
+# holidays (Tet, Hung Kings) shift every year and their exact multi-day
+# "bridge" schedule is only confirmed by an official government
+# announcement (usually issued a few months ahead by MOLISA). Entries
+# marked `verify: true` should be re-checked (WebSearch "Vietnam public
+# holidays <year> official government announcement") before being trusted
+# for a date range the skill is about to act on.
+#
+# Add new years at the bottom as they're confirmed. Never delete past
+# years — they're harmless history and useful as a format reference.
+
+2026:
+  - date: "2026-01-01"
+    name: "New Year's Day"
+    verify: false
+  - date: "2026-02-14"
+    name: "Tet holiday (Lunar New Year's Eve, approx.)"
+    verify: true
+  - date: "2026-02-15"
+    name: "Tet holiday"
+    verify: true
+  - date: "2026-02-16"
+    name: "Tet holiday"
+    verify: true
+  - date: "2026-02-17"
+    name: "Tet holiday (Lunar New Year's Day)"
+    verify: true
+  - date: "2026-02-18"
+    name: "Tet holiday"
+    verify: true
+  - date: "2026-04-26"
+    name: "Hung Kings' Temple Festival (approx., 10th day 3rd lunar month)"
+    verify: true
+  - date: "2026-04-30"
+    name: "Reunification Day"
+    verify: false
+  - date: "2026-05-01"
+    name: "International Labor Day"
+    verify: false
+  - date: "2026-09-02"
+    name: "National Day"
+    verify: false
+  # No further known 2026 public holidays after National Day (Sep 2) —
+  # nothing else expected through year end as of when this file was written.
+
+# 2027: not yet populated. First run of the skill in 2027 should WebSearch
+# "Vietnam public holidays 2027 official government announcement" and add
+# a block here in the same shape.

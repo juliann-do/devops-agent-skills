@@ -1,0 +1,3 @@
+# Shared by Claude Code and Codex: read-only access to all kubeconfig contexts
+read_only = true
+toolsets = ["core", "config", "helm"]

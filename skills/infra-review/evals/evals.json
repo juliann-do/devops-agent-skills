@@ -1,0 +1,49 @@
+{
+  "skill_name": "infra-review",
+  "evals": [
+    {
+      "id": 0,
+      "name": "sound-chart-no-false-findings",
+      "prompt": "before i touch it, can you look over the buzzencer node pool setup in manifest/sre-non-prod-infra-charts/helm/uat-bbvn-nodepool and tell me if it's actually set up right? kubectl context is bbvn-uat, aws profile twomi. dont change anything",
+      "expected_output": "Reports the chart is sound, naming what was verified (renders, CRD-valid, AZs have ENIConfigs, nodes Ready). Should NOT manufacture severe findings to look thorough. Makes no edits.",
+      "files": [],
+      "assertions": [
+        "Ran helm lint or helm template against the chart itself (evidence of rendering, not just reading YAML)",
+        "Checked the cluster for ENIConfigs covering the AZs the pool uses",
+        "Verified buzzencer nodes are actually Ready in the cluster",
+        "Did NOT raise a Critical/High finding about a missing ENIConfig (1a and 1c both have one - that would be a false positive)",
+        "Concluded the chart is broadly sound instead of manufacturing severe findings",
+        "Created no file other than review.md"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "new-az-missing-eniconfig",
+      "prompt": "i want the buzzencer pool spread over 3 AZ instead of 2, so i added ap-northeast-1d. updated chart is at ~/Desktop/torilab/.claude/skills/infra-review-workspace/fixtures/nodepool-add-1d. will this work? cluster is bbvn-uat, aws profile twomi",
+      "expected_output": "Identifies that ap-northeast-1d has no ENIConfig, so nodes there never become Ready (aws-node readiness fails on ipamd.sock). Critical severity. Makes no edits.",
+      "files": [],
+      "assertions": [
+        "Queried the cluster for ENIConfigs (kubectl get eniconfig or equivalent)",
+        "Identified that ap-northeast-1d has no ENIConfig",
+        "Stated the concrete failure: nodes in 1d never reach Ready / aws-node readiness fails on ipamd.sock",
+        "Rated that finding Critical or High",
+        "Created no file other than review.md"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "unwired-chart-bad-preconditions",
+      "prompt": "wrote a new chart for a reports-api service, it's at ~/Desktop/torilab/.claude/skills/infra-review-workspace/fixtures/reports-api and it's meant to go on the bbvn-uat cluster. review it before i open the PR please. profile twomi",
+      "expected_output": "Flags: not declared as a release in any applications/<cluster>/values.yaml so it deploys nothing; storageClassName gp3-encrypted does not exist; nodeSelector nodepool=reports matches no nodes; bitnami/redis:7.4.0-debian-12-r0 no longer resolves; ServiceAccount created but never referenced by the StatefulSet. Makes no edits.",
+      "files": [],
+      "assertions": [
+        "Flagged the chart is not declared as a release in any applications/<cluster>/values.yaml, so it deploys nothing",
+        "Flagged storageClassName gp3-encrypted does not exist on the cluster",
+        "Flagged nodeSelector/toleration nodepool=reports matches no existing node pool",
+        "Flagged image bitnami/redis:7.4.0-debian-12-r0 is not pullable (Bitnami moved versioned tags to bitnamilegacy)",
+        "Flagged the ServiceAccount is created but never referenced by the StatefulSet",
+        "Created no file other than review.md"
+      ]
+    }
+  ]
+}

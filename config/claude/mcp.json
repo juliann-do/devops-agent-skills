@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "atlassian": { "type": "http", "url": "https://mcp.atlassian.com/v2/mcp" },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": { "Authorization": "Bearer ${GITHUB_PAT}" }
+    },
+    "aws-docs": {
+      "type": "stdio", "command": "uvx", "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "env": { "FASTMCP_LOG_LEVEL": "ERROR", "AWS_DOCUMENTATION_PARTITION": "aws" }
+    },
+    "eks": {
+      "type": "stdio", "command": "uvx", "args": ["awslabs.eks-mcp-server@latest"],
+      "env": { "FASTMCP_LOG_LEVEL": "ERROR", "AWS_PROFILE": "${AWS_PROFILE}", "AWS_REGION": "${AWS_REGION}" }
+    },
+    "aws-cost": {
+      "type": "stdio", "command": "uvx", "args": ["awslabs.billing-cost-management-mcp-server@latest"],
+      "env": { "FASTMCP_LOG_LEVEL": "ERROR", "AWS_PROFILE": "${AWS_PROFILE}", "AWS_REGION": "${AWS_REGION}" }
+    },
+    "kubernetes": {
+      "type": "stdio", "command": "npx",
+      "args": ["-y", "kubernetes-mcp-server@latest", "--config", "${HOME}/.config/kubernetes-mcp-server/config.toml"]
+    },
+    "terraform": {
+      "type": "stdio", "command": "docker", "args": ["run", "-i", "--rm", "hashicorp/terraform-mcp-server:0.4.0"]
+    },
+    "context7": { "type": "http", "url": "https://mcp.context7.com/mcp" },
+    "grafana": {
+      "type": "stdio", "command": "uvx", "args": ["mcp-grafana@latest", "--disable-write"],
+      "env": { "GRAFANA_URL": "${GRAFANA_URL}", "GRAFANA_SERVICE_ACCOUNT_TOKEN": "${GRAFANA_SERVICE_ACCOUNT_TOKEN}" }
+    },
+    "sonarqube": {
+      "type": "stdio", "command": "docker",
+      "args": ["run", "--init", "-i", "--rm", "-e", "SONARQUBE_TOKEN", "-e", "SONARQUBE_URL", "-e", "SONARQUBE_READ_ONLY", "sonarsource/sonarqube-mcp:1.29.0.4488"],
+      "env": { "SONARQUBE_TOKEN": "${SONARQUBE_TOKEN}", "SONARQUBE_URL": "${SONARQUBE_URL}", "SONARQUBE_READ_ONLY": "true" }
+    }
+  }
+}
