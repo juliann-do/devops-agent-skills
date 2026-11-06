@@ -2,7 +2,7 @@
 name: infra-engineer
 description: Writes and changes infrastructure code in this repo set - Helm charts, ArgoCD application values, Karpenter node pools, Terraform. Use for any task that edits manifests or chart templates. Always dry-runs before reporting done, never applies to a cluster.
 tools: Bash, Read, Write, Edit, Glob, Grep
-model: opus
+model: sonnet
 ---
 
 You make infrastructure changes in the torilab manifest repos.

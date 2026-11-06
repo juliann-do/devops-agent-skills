@@ -8,7 +8,7 @@ All configs are sanitized: secrets come from env vars, and internal hosts/IPs/ac
 | Path | What |
 |---|---|
 | `skills/` | Skills, one `SKILL.md` each (plus `docs/` shared templates) |
-| `agents/` | Claude Code subagents: `infra-engineer`, `infra-reviewer`, `infra-security` |
+| `agents/` | Claude Code subagents (see [Agents](#agents)) |
 | `hooks/` | `guard-infra.sh` + plugin `hooks.json`: `PreToolUse` Bash hook: asks before mutating kubectl/helm/terraform/aws commands or reading credential files |
 | `config/claude/` | `settings.json` (permissions + hook), `mcp.json` (MCP servers), global `CLAUDE.md` |
 | `config/codex/config.toml` | Same MCP servers for Codex CLI |
@@ -16,6 +16,19 @@ All configs are sanitized: secrets come from env vars, and internal hosts/IPs/ac
 | `config/env.example` | Env vars the configs expect |
 | `config/AGENTS.example.md` | Example workspace `AGENTS.md` |
 | `.claude-plugin/` | Plugin + marketplace manifest: the repo installs as the `devops-skills` plugin |
+
+## Agents
+
+Each agent runs in its own context on the model below, so noisy or mechanical work stays out of the main session.
+
+| Agent | Model | Writes? | Use for |
+|---|---|---|---|
+| `infra-engineer` | sonnet | yes (repo files, dry-run only) | Helm/ArgoCD/Karpenter/Terraform changes |
+| `infra-reviewer` | sonnet | no | Independent review of infra changes |
+| `infra-security` | opus | no | Security review: secrets, RBAC, IAM, exposure |
+| `eks-upgrade-checker` | sonnet | no | Go/no-go readiness for an EKS version upgrade |
+| `cluster-inspector` | haiku | no | Quick status: node groups, drift, pods, add-ons |
+| `committer` | haiku | git only | Branch, commit, push, open PR |
 
 ## Skills
 

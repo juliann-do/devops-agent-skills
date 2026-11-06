@@ -8,6 +8,8 @@ semantic versioning, and each skill also carries its own `metadata.version`.
 
 ### Added
 
+- **Agents `cluster-inspector` (haiku), `committer` (haiku), `eks-upgrade-checker` (sonnet)**:
+  cheap read-only status checks, mechanical git/PR work, and EKS upgrade readiness.
 - **`/friday-logwork`** (v1.0.0) — personal Jira timesheet assistant. Creates
   native Jira worklogs (never Tempo, never edits or deletes) against INF
   tickets that reached Done during the week, distributing 7h/day by
@@ -17,6 +19,7 @@ semantic versioning, and each skill also carries its own `metadata.version`.
 
 ### Changed
 
+- **`infra-engineer`, `infra-reviewer`**: model opus → sonnet; `infra-security` stays on opus.
 - **All skills** — new "Sources and reasoning" section: conclusions drawn
   from research end with a **References** list of doc links, and every
   log/event/metric/error trace is preceded by one line saying what it looks
