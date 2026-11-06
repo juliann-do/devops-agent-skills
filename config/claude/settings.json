@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "ask": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/*.enc.yaml)",
+      "Read(**/*.enc.yml)",
+      "Read(**/*.enc.json)",
+      "Read(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Read(**/id_rsa*)",
+      "Read(**/id_ed25519*)",
+      "Read(**/credentials.json)",
+      "Read(~/.aws/credentials)",
+      "Read(~/.ssh/**)",
+      "Read(~/.kube/config)",
+      "Read(**/.netrc)",
+      "Read(**/.npmrc)",
+      "Read(**/.pgpass)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/guard-infra.sh",
+            "timeout": 10,
+            "statusMessage": "Checking command against infra guard..."
+          }
+        ]
+      }
+    ]
+  }
+}
